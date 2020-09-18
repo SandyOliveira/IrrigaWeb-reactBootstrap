@@ -6,11 +6,25 @@ import Content from "../../../components/content/Content";
 
 import PropTypes from "prop-types";
 
-export default function AuthLayout({ children, toggle, isOpen }) {
+export default function AuthLayout({ children }) {
+  /**
+   * Add event listener
+   */
+  useEffect(() => {
+    window.addEventListener("resize");
+    return () => {
+      window.removeEventListener("resize");
+    };
+  }, []);
+
   return (
     <div className="App wrapper">
-      <SideBar toggle={toggle} isOpen={isOpen} />
-      <Content toggle={toggle} isOpen={isOpen} children={children} />
+      <SideBar toggle={this.toggle} isOpen={this.state.isOpen} />
+      <Content
+        toggle={this.toggle}
+        isOpen={this.state.isOpen}
+        children={children}
+      />
     </div>
   );
 }

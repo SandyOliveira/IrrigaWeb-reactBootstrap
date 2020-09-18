@@ -3,17 +3,14 @@ import classNames from "classnames";
 import { Container } from "react-bootstrap";
 import NavBar from "./Navbar";
 
-class Content extends React.Component {
-  render() {
-    return (
-      <Container
-        fluid
-        className={classNames("content", { "is-open": this.props.isOpen })}
-      >
-        <NavBar toggle={this.props.toggle} />
-      </Container>
-    );
+export default function Content({ isOpen, toggle, children }) {
+  {
+    console.log(children);
   }
+  return (
+    <Container fluid className={classNames("content", { "is-open": isOpen })}>
+      <NavBar toggle={toggle} />
+      {children}
+    </Container>
+  );
 }
-
-export default Content;

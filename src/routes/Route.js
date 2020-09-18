@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { Route, Redirect } from "react-router-dom";
 
@@ -10,7 +10,30 @@ export default function RouteWrapper({
   isPrivate,
   ...rest
 }) {
-  const signed = false;
+  const [previousWidth, setPreviousWidth] = useState(-1);
+  const [toggle, setToggle] = useState(true);
+  const [isOpen, setIsOpen] = useState(true);
+
+  function updateWidth() {
+    const width = window.innerWidth;
+    const widthLimit = 576;
+    const isMobile = width <= widthLimit;
+    const wasMobile = previousWidth <= widthLimit;
+
+    if (isMobile !== wasMobile) {
+      setIsOpen(!isMobile);
+    }
+
+    setPreviousWidth(width);
+  }
+  useEffect(() => {
+    window.addEventListener("resize", updateWidth);
+    return () => {
+      window.removeEventListener("resize", updateWidth);
+    };
+  }, []);
+
+  const signed = true;
 
   if (!signed && isPrivate) {
     return <Redirect to="/" />;
@@ -26,7 +49,7 @@ export default function RouteWrapper({
     <Route
       {...rest}
       render={(props) => (
-        <Layout>
+        <Layout toggle={toggle} isOpen={isOpen}>
           <Component {...props} />
         </Layout>
       )}
