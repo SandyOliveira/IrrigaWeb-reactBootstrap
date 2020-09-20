@@ -1,0 +1,23 @@
+Container {
+  max-width: 600px;
+  margin: 50px auto;
+
+  display: flex;
+  flex-direction: column;
+}
+
+strong {
+  display: flex;
+  flex-direction: column;
+  color: #191970;
+  font-size: 24px;
+  margin: 0 15px;
+  align-items: center;
+}
+
+ul {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  grid-gap: 15px;
+  margin-top: 30px;
+}

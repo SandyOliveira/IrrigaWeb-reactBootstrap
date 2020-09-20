@@ -1,31 +1,5 @@
 import styled from "styled-components";
 
-export const Container = styled.div`
-  max-width: 600px;
-  margin: 50px auto;
-
-  display: flex;
-  flex-direction: column;
-
-  strong {
-    color: #fff;
-    font-size: 24px;
-    margin: 0 15px;
-  }
-
-  header {
-    display: flex;
-    align-self: center;
-    align-items: center;
-  }
-
-  ul {
-    display: grid;
-    grid-template-columns: repeat(1, 1fr);
-    grid-gap: 15px;
-    margin-top: 30px;
-  }
-`;
 export const Time = styled.li`
   flex: 1;
   justify-content: center;

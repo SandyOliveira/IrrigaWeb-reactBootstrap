@@ -3,13 +3,10 @@ import classNames from "classnames";
 import { Container } from "react-bootstrap";
 import NavBar from "./Navbar";
 
-export default function Content({ isOpen, toggle, children }) {
-  {
-    console.log(children);
-  }
+export default function Content({ children, isOpen }) {
   return (
     <Container fluid className={classNames("content", { "is-open": isOpen })}>
-      <NavBar toggle={toggle} />
+      <NavBar />
       {children}
     </Container>
   );
