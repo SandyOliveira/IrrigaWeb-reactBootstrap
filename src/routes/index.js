@@ -7,6 +7,7 @@ import Dashboard from "../pages/Dashboard";
 import SensorForm from "../pages/SensorForm";
 import CultureForm from "../pages/CultureForm";
 import SectorForm from "../pages/SectorForm";
+import ScheduleForm from "../pages/ScheduleForm";
 
 export default function Routes() {
   return (
@@ -16,6 +17,7 @@ export default function Routes() {
       <Route path="/sensors" component={SensorForm} isPrivate />
       <Route path="/cultures" component={CultureForm} isPrivate />
       <Route path="/sectors" component={SectorForm} isPrivate />
+      <Route path="/schedules" component={ScheduleForm} isPrivate />
     </Switch>
   );
 }

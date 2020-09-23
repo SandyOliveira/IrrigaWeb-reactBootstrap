@@ -34,7 +34,7 @@ export default function SectorForm() {
       </div>
       <div className="col-sm-12 col-md-12 bg-light p-3  ">
         <div className="row">
-          <Form className="col-md-5">
+          <Form className="col-md-8">
             <Form.Group>
               <Form.Label for="nameSector">Nome do setor</Form.Label>
               <FormControl
@@ -49,7 +49,7 @@ export default function SectorForm() {
               <Form.Control as="textarea" rows="3" />
             </Form.Group>
           </Form>
-          <Form className="col-md-6">
+          <Form className="col-md-8">
             <div style={{ padding: 30 }}>
               <Form.Group>
                 <Button
