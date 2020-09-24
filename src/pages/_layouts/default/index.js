@@ -9,13 +9,13 @@ import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 
 //export default function AuthLayout({ children, toggle, isOpen }) {
-export default function AuthLayout({ children, toggle }) {
+export default function AuthLayout({ children }) {
   const isOpen = useSelector((state) => state.main.isOpen);
 
   return (
     <div className="App wrapper">
-      <SideBar toggle={toggle} isOpen={isOpen} />
-      <Content toggle={toggle} isOpen={isOpen} children={children} />
+      <SideBar isOpen={isOpen} />
+      <Content isOpen={isOpen} children={children} />
     </div>
   );
 }

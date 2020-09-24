@@ -3,17 +3,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAlignLeft } from "@fortawesome/free-solid-svg-icons";
 import { Navbar, Button, Nav } from "react-bootstrap";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { openMainRequest } from "../../store/modules/main/actions";
 
 export default function NavBar() {
   const dispatch = useDispatch();
-  const [isOpen, setIsOpen] = useState(false);
+  const isOpen = useSelector((state) => state.main.isOpen);
 
-  function handleSubmit() {
-    setIsOpen(!isOpen);
-    dispatch(openMainRequest(isOpen));
-  }
   return (
     <Navbar
       bg="light"
@@ -23,7 +19,7 @@ export default function NavBar() {
       <Button
         variant="outline-info"
         onClick={() => {
-          handleSubmit();
+          dispatch(openMainRequest(isOpen));
         }}
       >
         <FontAwesomeIcon icon={faAlignLeft} />
