@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faHome,
@@ -32,16 +32,16 @@ export default function SideBar({ isOpen }) {
         >
           <FontAwesomeIcon icon={faTimes} pull="right" size="xs" />
         </Button>
-        <h3>react-bootstrap sidebar</h3>
+        <h3>Irriga</h3>
       </div>
 
       <Nav className="flex-column pt-2">
-        <p className="ml-3">Heading</p>
+        <p className="ml-3">Menu</p>
 
         <Nav.Item className="active">
-          <Nav.Link href="/">
+          <Nav.Link href="/dashboard">
             <FontAwesomeIcon icon={faHome} className="mr-2" />
-            Home
+            Painel de controle
           </Nav.Link>
         </Nav.Item>
 

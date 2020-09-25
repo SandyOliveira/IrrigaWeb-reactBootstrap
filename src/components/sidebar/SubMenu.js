@@ -47,7 +47,7 @@ class SubMenu extends React.Component {
                   className={`nav-link nav-item pl-5 ${
                     item === "Active" ? "active" : ""
                   } `}
-                  href="/"
+                  href="/sectors"
                   key={item}
                 >
                   {item}

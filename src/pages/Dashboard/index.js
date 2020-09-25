@@ -9,7 +9,7 @@ import "./index.css";
 export default function Dashboard() {
   return (
     <Container>
-      <header>
+      <header className="shadow-sm p-3 mb-2 rounded ">
         <strong>09 de setembro</strong>
       </header>
       <ul>
