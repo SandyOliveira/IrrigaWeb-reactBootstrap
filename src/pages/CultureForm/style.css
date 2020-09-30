@@ -15,7 +15,6 @@ select {
   border-radius: 4px;
   box-sizing: border-box;
 }
-
 textarea {
   width: 100%;
 
@@ -26,11 +25,6 @@ textarea {
 
   resize: none;
 }
-
-.hidden {
-  display: none !important;
-}
-
 button[type="submit"] {
   background-color: #00f;
 
