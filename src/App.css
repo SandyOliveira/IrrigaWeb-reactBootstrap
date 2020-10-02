@@ -7,14 +7,12 @@
 @import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
 @import "https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,500,600,700";
 
-
 body {
   /*font-family: 'Poppins', sans-serif;*/
-  font-family: 'Nunito Sans', sans-serif;
+  font-family: "Nunito Sans", sans-serif;
   /*background: #fafafa;*/
   background-color: #f5f9fc;
 }
-
 
 a,
 a:hover,
@@ -38,16 +36,15 @@ a:focus {
 
 .sidebar.is-open {
   margin-left: 0;
-  transition: .5s;
+  transition: 0.5s;
 }
-
 
 .sidebar-header {
   background: #313b4c;
   color: #adb5bd;
 }
 
-.sidebar-header h3{
+.sidebar-header h3 {
   color: #fff;
   padding: 1em;
 }
@@ -57,7 +54,7 @@ a:focus {
   padding: 10px;
 }
 
-.collapse.show, 
+.collapse.show,
 .collapsing {
   background: #313b4c;
 }
@@ -81,7 +78,7 @@ a:focus {
 .nav-item:hover {
   background: #313b4c;
   color: #fff;
-  transition: .2s;
+  transition: 0.2s;
 }
 
 .nav-item .svg-inline--fa {
@@ -92,18 +89,17 @@ li a.dropdown-toggle::after {
   display: inline-flex;
   position: relative;
   left: 60%;
-  top: 10%
+  top: 10%;
 }
 
 .sidebar-header > button {
   position: relative;
   float: right;
-  margin: .5em;
+  margin: 0.5em;
   font-size: 2rem;
   cursor: pointer;
   display: none;
 }
-
 
 /* ---------------------------------------------------
     CONTENT STYLE
@@ -112,19 +108,20 @@ li a.dropdown-toggle::after {
   padding: 20px;
   margin-left: 0;
   height: 100vh;
+  overflow: scroll;
 }
 
 @media only screen and (max-width: 575.98px) {
   body {
-    overflow:  hidden;
+    overflow: hidden;
   }
-  
+
   .content.is-open {
     /*margin-left: 100%;*/
     display: none;
     transition: all 0.5s;
   }
-  
+
   .sidebar.is-open {
     min-width: 100%;
     max-width: 100%;
@@ -132,17 +129,14 @@ li a.dropdown-toggle::after {
     transition: all 0.5s, height 0s;
     height: 100vh !important;
   }
-  
+
   .sidebar.is-open > .sidebar-header button {
     display: block;
   }
-  
+
   li a.dropdown-toggle::after {
     display: inline-block;
     position: relative;
     left: 68%;
   }
-  
 }
-
-

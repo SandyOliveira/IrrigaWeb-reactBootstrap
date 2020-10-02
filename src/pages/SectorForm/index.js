@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 
-import { Formik, Field, Form } from "formik";
+import { Formik, Field, Form, FieldArray } from "formik";
 
 import "./index.css";
+import { FormControl } from "react-bootstrap";
 
 export default function SectorForm() {
   const [isVisible, setIsVisible] = useState(false);
@@ -14,7 +15,10 @@ export default function SectorForm() {
   ]);
 
   const [selectCulturesField, setSelectCulturesField] = useState([0]);
-  const [cultures, setCultures] = useState([{ id: 1, name: "cenoura" }]);
+  const [cultures, setCultures] = useState([
+    { id: 1, name: "cenoura" },
+    { id: 2, name: "couve" },
+  ]);
 
   useEffect(() => {}, [sensors]);
 
@@ -30,10 +34,6 @@ export default function SectorForm() {
     setSelectCulturesField(updated);
   }
 
-  function onSubmit(values, actions) {
-    console.log("SUBMIT", values);
-  }
-
   return (
     <>
       <div className="shadow-sm p-3 mb-2 rounded">
@@ -41,23 +41,28 @@ export default function SectorForm() {
       </div>
       <Formik
         // validationSchema={schema}
-        onSubmit={onSubmit}
+        onSubmit={(values) => {
+          console.log(values);
+          console.log("okkkk1");
+        }}
         initialValues={{
           name: "",
-          nameArea: "",
-          nameColheita: "",
           textarea: "",
-          textarea1: "",
+
+          selectCultura: [],
+          selectSensor: [],
         }}
-        render={({ values, errors, touched }) => (
+        render={({ values, errors, touched, handleChange, handleSubmit }) => (
           <div className="col-sm-12 col-md-12 bg-light p-3 ">
             <div className="row">
-              <Form className="col-md-12">
+              <Form className="col-md-12" onSubmit={handleSubmit}>
                 <div className="row">
                   <div className="col-md-6 col-sm-12 col-12">
                     <div>
                       <label>Nome do setor</label>
                       <Field
+                        value={values.name}
+                        onChange={handleChange}
                         type="text"
                         name="name"
                         id="nameSector"
@@ -66,15 +71,25 @@ export default function SectorForm() {
                     </div>
 
                     <div>
-                      <label>Informações gerais</label>
-                      <Field name="textarea" rows="5" component="textarea" />
+                      <label style={{ marginBottom: "10px !important" }}>
+                        Informações gerais
+                      </label>
+                      <br />
+                      <Field
+                        value={values.textarea}
+                        onChange={handleChange}
+                        name="textarea"
+                        rows="5"
+                        component="textarea"
+                      />
                     </div>
                   </div>
 
-                  <div className="col-md-6 col-sm-12 col-12">
+                  <div className="col-md-6 col-sm-12 col-12  ">
                     <div className="row">
-                      <div className="col-md-12 col-sm-6 col-12">
+                      <div className="col-md-12 col-sm-6 col-12 p-0">
                         <button
+                          type="button"
                           style={{
                             backgroundColor: "#00f",
                             color: "#fff",
@@ -92,49 +107,62 @@ export default function SectorForm() {
                         >
                           Adicionar cultura
                         </button>
-                        <div>
+                        <div style={{ padding: 15 }}>
                           {selectCulturesField.map((field) => {
                             return (
-                              <div>
-                                <label for={`exampleSelect${field}`}>
-                                  Cultura
-                                </label>
-                                <div
-                                  style={{
-                                    display: "flex",
+                              <div row>
+                                <div style={{ flexDirection: "column" }}>
+                                  <div
+                                    style={{
+                                      display: "flex",
+                                      flexDirection: "row",
+                                    }}
+                                  >
+                                    <label for={`exampleSelect${field}`}>
+                                      Cultura:
+                                    </label>
+                                  </div>
+                                  <div
+                                    style={{
+                                      display: "flex",
 
-                                    flexDirection: "row",
-                                  }}
-                                >
-                                  <Field
-                                    type="select"
-                                    name="select"
-                                    as="select"
-                                    id={`exampleSelect${field}`}
-                                    style={{
-                                      backgroundColor: "#fff",
+                                      flexDirection: "row",
                                     }}
                                   >
-                                    {cultures.map((cultures) => {
-                                      return (
-                                        <option>
-                                          {cultures.id} - {cultures.name}
-                                        </option>
-                                      );
-                                    })}
-                                  </Field>
-                                  <button
-                                    onClick={() => handleDel(field)}
-                                    style={{
-                                      marginLeft: "1%",
-                                      width: "40px",
-                                      backgroundColor: "#ff0000",
-                                      border: "none",
-                                      borderRadius: "4px",
-                                    }}
-                                  >
-                                    X
-                                  </button>
+                                    <FieldArray name="selectCultura">
+                                      <Field
+                                        onChange={handleChange}
+                                        type="select"
+                                        name={`selectCultura[${field}]`}
+                                        as="select"
+                                        id={`exampleSelect${field}`}
+                                        style={{
+                                          backgroundColor: "#fff",
+                                        }}
+                                      >
+                                        {cultures.map((cultures) => {
+                                          return (
+                                            <option>
+                                              {cultures.id} - {cultures.name}
+                                            </option>
+                                          );
+                                        })}
+                                      </Field>
+                                    </FieldArray>
+                                    <button
+                                      onClick={() => handleDel(field)}
+                                      style={{
+                                        marginLeft: "1%",
+                                        width: "40px",
+                                        backgroundColor: "#ff0000",
+                                        border: "none",
+                                        borderRadius: "8px",
+                                        margin: 5,
+                                      }}
+                                    >
+                                      X
+                                    </button>
+                                  </div>
                                 </div>
                               </div>
                             );
@@ -142,8 +170,9 @@ export default function SectorForm() {
                         </div>
                       </div>
 
-                      <div className="col-md-12 col-sm-6 col-12">
+                      <div className="col-md-12 col-sm-6 col-12 p-0">
                         <button
+                          type="button"
                           style={{
                             backgroundColor: "#00f",
                             color: "#fff",
@@ -161,51 +190,66 @@ export default function SectorForm() {
                         >
                           Adicionar sensor
                         </button>
-                        {selectSensorField.map((field) => {
-                          return (
-                            <div>
-                              <label for={`exampleSelect${field}`}>
-                                Sensor
-                              </label>
-                              <div
-                                style={{
-                                  display: "flex",
-                                  flexDirection: "row",
-                                }}
-                              >
-                                <Field
-                                  type="select"
-                                  name="select1"
-                                  as="select"
-                                  id={`exampleSelect${field}`}
-                                  style={{
-                                    backgroundColor: "#fff",
-                                  }}
-                                >
-                                  {sensors.map((sensors) => {
-                                    return (
-                                      <option>
-                                        {sensors.id} - {sensors.name}
-                                      </option>
-                                    );
-                                  })}
-                                </Field>
-                                <button
-                                  onClick={() => handleDelete(field)}
-                                  style={{
-                                    marginLeft: "1%",
-                                    width: "40px",
-                                    backgroundColor: "#ff0000",
-                                    border: "none",
-                                    borderRadius: "4px",
-                                  }}
-                                >
-                                  X
-                                </button>
+                        <div style={{ padding: 15 }}>
+                          {selectSensorField.map((field, index) => {
+                            return (
+                              <div row>
+                                <div style={{ flexDirection: "column" }}>
+                                  <div
+                                    style={{
+                                      display: "flex",
+                                      flexDirection: "row",
+                                    }}
+                                  >
+                                    <label for={`exampleSelect${field}`}>
+                                      Sensor:
+                                    </label>
+                                  </div>
+                                  <div
+                                    style={{
+                                      display: "flex",
+                                      flexDirection: "row",
+                                    }}
+                                  >
+                                    <FieldArray name="selectSensor">
+                                      <Field
+                                        name={`selectSensor[${index}]`}
+                                        onChange={handleChange}
+                                        type="select"
+                                        as="select"
+                                        id={`exampleSelect${field}`}
+                                        style={{
+                                          backgroundColor: "#fff",
+                                        }}
+                                      >
+                                        {sensors.map((sensors) => {
+                                          return (
+                                            <option>
+                                              {sensors.id} - {sensors.name}
+                                            </option>
+                                          );
+                                        })}
+                                      </Field>
+                                    </FieldArray>
+                                    <button
+                                      onClick={() => handleDelete(field)}
+                                      style={{
+                                        marginLeft: "1%",
+                                        width: "40px",
+                                        backgroundColor: "#ff0000",
+                                        border: "none",
+                                        borderRadius: "8px",
+                                        margin: 5,
+                                      }}
+                                    >
+                                      X
+                                    </button>
+                                  </div>
+                                </div>
                               </div>
-                            </div>
-                          );
-                        })}
+                            );
+                          })}
+                        </div>
                       </div>
                     </div>
                   </div>
