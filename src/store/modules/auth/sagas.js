@@ -36,18 +36,18 @@ export function* signIn({ payload }) {
 
 export function* signUp({ payload }) {
   try {
-    const { username, password } = payload;
+    const { username, email, password } = payload;
 
-    yield call(api.post, "users", {
+    yield call(api.post, "api/register/", {
       username,
+      email,
       password,
-      provider: true,
     });
-
+    console.log("Veio aq");
     history.push("/");
   } catch (err) {
     // toast.error("Falha no cadastro, verifique seus dados!");
-
+    console.log("ERRO");
     yield put(signFailure());
   }
 }
@@ -66,4 +66,8 @@ export function signOut() {
   history.push("/");
 }
 
-export default all([takeLatest("@auth/SIGN_IN_REQUEST", signIn)]);
+export default all([
+  takeLatest("@auth/SIGN_IN_REQUEST", signIn),
+  takeLatest("@auth/SIGN_UP_REQUEST", signUp),
+  takeLatest("@auth/SIGN_OUT", signOut),
+]);

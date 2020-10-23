@@ -16,9 +16,13 @@ import { openMainRequest } from "../../store/modules/main/actions";
 
 import { useDispatch } from "react-redux";
 
+import { signOut } from "../../store/modules/auth/actions";
+
 export default function SideBar({ isOpen }) {
   const dispatch = useDispatch();
-
+  function handleSignOut() {
+    dispatch(signOut());
+  }
   return (
     <div className={classNames("sidebar", { "is-open": isOpen })}>
       <div className="sidebar-header">
@@ -76,6 +80,20 @@ export default function SideBar({ isOpen }) {
           <Nav.Link href="/">
             <FontAwesomeIcon icon={faPaperPlane} className="mr-2" />
             Contact
+          </Nav.Link>
+        </Nav.Item>
+
+        <Nav.Item>
+          <Nav.Link>
+            <Button
+              type="button"
+              variant="danger"
+              size="lg"
+              block
+              onClick={handleSignOut}
+            >
+              Sair
+            </Button>
           </Nav.Link>
         </Nav.Item>
       </Nav>

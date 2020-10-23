@@ -8,11 +8,13 @@ import SensorForm from "../pages/SensorForm";
 import CultureForm from "../pages/CultureForm";
 import SectorForm from "../pages/SectorForm";
 import ScheduleForm from "../pages/ScheduleForm";
+import SignUp from "../pages/SignUp";
 
 export default function Routes() {
   return (
     <Switch>
       <Route path="/" exact component={SignIn} />
+      <Route path="/register" component={SignUp} />
       <Route path="/dashboard" component={Dashboard} isPrivate />
       <Route path="/sensors" component={SensorForm} isPrivate />
       <Route path="/cultures" component={CultureForm} isPrivate />
