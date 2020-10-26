@@ -1,26 +1,43 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 
 import { Formik, Field, Form, FieldArray } from "formik";
+
+import { sectorsInRequest } from "../../store/modules/sectors/actions";
+
+import api from "../../services/api";
 
 import "./index.css";
 import { FormControl } from "react-bootstrap";
 
 export default function SectorForm() {
+  const dispatch = useDispatch();
   const [isVisible, setIsVisible] = useState(false);
 
   const [selectSensorField, setSelectSensorField] = useState([0]);
-  const [sensors, setSensors] = useState([
-    { id: 1, name: "umidade" },
-    { id: 2, name: "umidade2" },
-  ]);
+  const [sensors, setSensors] = useState([]);
 
   const [selectCulturesField, setSelectCulturesField] = useState([0]);
-  const [cultures, setCultures] = useState([
-    { id: 1, name: "cenoura" },
-    { id: 2, name: "couve" },
-  ]);
+  const [cultures, setCultures] = useState([]);
 
-  useEffect(() => {}, [sensors]);
+  useEffect(() => {
+    async function loadSensores() {
+      const response = await api.get("api/v1/sensores/");
+
+      console.log(response.data.results);
+      setSensors(response.data.results);
+    }
+    loadSensores();
+  }, []);
+  useEffect(() => {
+    async function loadCulturas() {
+      const response = await api.get("api/v1/culturas/");
+
+      console.log(response.data.results);
+      setCultures(response.data.results);
+    }
+    loadCulturas();
+  }, []);
 
   function handleDelete(field) {
     let updated = [];
@@ -33,6 +50,10 @@ export default function SectorForm() {
     updated = selectCulturesField.filter((item) => item !== field);
     setSelectCulturesField(updated);
   }
+  function onSubmit({ name, textarea, selectCultura, selectSensor }) {
+    dispatch(sectorsInRequest(name, textarea, selectCultura, selectSensor));
+    console.log("SUBMIT", name, textarea, selectCultura, selectSensor);
+  }
 
   return (
     <>
@@ -41,10 +62,7 @@ export default function SectorForm() {
       </div>
       <Formik
         // validationSchema={schema}
-        onSubmit={(values) => {
-          console.log(values);
-          console.log("okkkk1");
-        }}
+        onSubmit={onSubmit}
         initialValues={{
           name: "",
           textarea: "",
@@ -110,7 +128,7 @@ export default function SectorForm() {
                         <div style={{ padding: 15 }}>
                           {selectCulturesField.map((field) => {
                             return (
-                              <div row>
+                              <div row="true">
                                 <div style={{ flexDirection: "column" }}>
                                   <div
                                     style={{
@@ -118,7 +136,7 @@ export default function SectorForm() {
                                       flexDirection: "row",
                                     }}
                                   >
-                                    <label for={`exampleSelect${field}`}>
+                                    <label htmlFor={`exampleSelect${field}`}>
                                       Cultura:
                                     </label>
                                   </div>
@@ -143,7 +161,7 @@ export default function SectorForm() {
                                         {cultures.map((cultures) => {
                                           return (
                                             <option>
-                                              {cultures.id} - {cultures.name}
+                                              {cultures.id} - {cultures.nome}
                                             </option>
                                           );
                                         })}
@@ -193,7 +211,7 @@ export default function SectorForm() {
                         <div style={{ padding: 15 }}>
                           {selectSensorField.map((field, index) => {
                             return (
-                              <div row>
+                              <div row="true">
                                 <div style={{ flexDirection: "column" }}>
                                   <div
                                     style={{
@@ -201,7 +219,7 @@ export default function SectorForm() {
                                       flexDirection: "row",
                                     }}
                                   >
-                                    <label for={`exampleSelect${field}`}>
+                                    <label htmlFor={`exampleSelect${field}`}>
                                       Sensor:
                                     </label>
                                   </div>
@@ -225,7 +243,7 @@ export default function SectorForm() {
                                         {sensors.map((sensors) => {
                                           return (
                                             <option>
-                                              {sensors.id} - {sensors.name}
+                                              {sensors.id} - {sensors.nome}
                                             </option>
                                           );
                                         })}
