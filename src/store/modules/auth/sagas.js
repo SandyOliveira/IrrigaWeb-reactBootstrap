@@ -5,6 +5,7 @@ import history from "../../../services/history";
 import api from "../../../services/api";
 
 import { signInSuccess, signFailure } from "./actions";
+import { toast } from "react-toastify";
 
 export function* signIn({ payload }) {
   try {
@@ -43,7 +44,7 @@ export function* signUp({ payload }) {
       email,
       password,
     });
-    console.log("Veio aq");
+    toast.success("Cadastro realizado com sucesso!");
     history.push("/");
   } catch (err) {
     // toast.error("Falha no cadastro, verifique seus dados!");

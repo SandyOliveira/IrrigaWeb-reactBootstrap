@@ -1,5 +1,5 @@
 import { takeLatest, call, put, all } from "redux-saga/effects";
-//import { toast } from "react-toastify";
+import { toast } from "react-toastify";
 
 import history from "../../../services/history";
 import api from "../../../services/api";
@@ -9,16 +9,17 @@ export function* requestSector({ payload }) {
     const { name, textarea, selectCultura, selectSensor } = payload;
 
     yield call(api.post, "api/v1/setores/", {
-      name,
-      textarea,
-      selectCultura,
-      selectSensor,
+      nome: name,
+      informacao_geral: textarea,
+      cultura: selectCultura,
+      sensor: selectSensor,
     });
+    toast.success("Cadastro de Setores realizado com sucesso!");
     console.log("Veio aq");
-    history.push("/");
+    //history.push("/");
   } catch (err) {
-    // toast.error("Falha no cadastro, verifique seus dados!");
-    console.log("ERRO");
+    toast.error("Falha no cadastro, verifique os dados!");
+    console.log("ERRO- ta no saga");
     //yield put(signFailure());
   }
 }

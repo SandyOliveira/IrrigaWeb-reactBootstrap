@@ -7,7 +7,7 @@ const INITIAL_STATE = {
   selectSensor: null,
 };
 
-export default function auth(state = INITIAL_STATE, action) {
+export default function sectors(state = INITIAL_STATE, action) {
   return produce(state, (draft) => {
     switch (action.type) {
       case "@auth/SECTORS_IN_REQUEST": {

@@ -8,7 +8,6 @@ import { sectorsInRequest } from "../../store/modules/sectors/actions";
 import api from "../../services/api";
 
 import "./index.css";
-import { FormControl } from "react-bootstrap";
 
 export default function SectorForm() {
   const dispatch = useDispatch();
@@ -160,7 +159,7 @@ export default function SectorForm() {
                                       >
                                         {cultures.map((cultures) => {
                                           return (
-                                            <option>
+                                            <option value={cultures.id}>
                                               {cultures.id} - {cultures.nome}
                                             </option>
                                           );
@@ -242,7 +241,7 @@ export default function SectorForm() {
                                       >
                                         {sensors.map((sensors) => {
                                           return (
-                                            <option>
+                                            <option value={sensors.id}>
                                               {sensors.id} - {sensors.nome}
                                             </option>
                                           );
