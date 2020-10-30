@@ -2,11 +2,39 @@ import React from "react";
 
 import { Formik, Field, Form } from "formik";
 
+import { useDispatch } from "react-redux";
+
 import "./style.css";
 
+import { cultureInRequest } from "../../store/modules/culture/actions";
+
 export default function CultureForm() {
-  function onSubmit(values, actions) {
-    console.log("SUBMIT", values);
+  const dispatch = useDispatch();
+
+  function onSubmit({
+    nome,
+    tamanho_da_area,
+    epoca_da_colheita,
+    tratos_culturais,
+    manejo,
+  }) {
+    dispatch(
+      cultureInRequest(
+        nome,
+        tamanho_da_area,
+        epoca_da_colheita,
+        tratos_culturais,
+        manejo
+      )
+    );
+    console.log(
+      "SUBMIT",
+      nome,
+      tamanho_da_area,
+      epoca_da_colheita,
+      tratos_culturais,
+      manejo
+    );
   }
   return (
     <>
@@ -17,42 +45,50 @@ export default function CultureForm() {
         // validationSchema={schema}
         onSubmit={onSubmit}
         initialValues={{
-          name: "",
-          nameArea: "",
-          nameColheita: "",
-          textarea: "",
-          textarea1: "",
+          nome: "",
+          tamanho_da_area: "",
+          epoca_da_colheita: "",
+          tratos_culturais: "",
+          manejo: "",
         }}
-        render={({ values, errors, touched }) => (
+        render={({ values, errors, touched, handleChange, handleSubmit }) => (
           <div className="col-sm-12 col-md-12 bg-light p-3  ">
             <div className="row">
-              <Form className="col-md-12">
+              <Form className="col-md-12" onSubmit={handleSubmit}>
                 <div className="row">
                   <div className="col-md-6 col-sm-12 col-12">
                     <div className="col-md-12 col-sm-6 col-12">
-                      <label for="nameCultura">Cultura</label>
+                      <label htmlFor="nameCultura">Cultura</label>
                       <Field
+                        value={values.nome}
+                        onChange={handleChange}
                         type="text"
-                        name="name"
+                        name="nome"
                         id="nameCultura"
                         placeholder="Informe o nome da cultura"
                       />
                     </div>
                     <div className="col-md-12 col-sm-6 col-12">
-                      <label for="nameArea">Tamanho da área</label>
+                      <label htmlFor=" tamanho_da_area">Tamanho da área</label>
                       <Field
+                        value={values.tamanho_da_area}
+                        onChange={handleChange}
                         type="text"
-                        name="nameArea"
-                        id="nameArea"
+                        id="tamanho_da_area"
+                        name="tamanho_da_area"
                         placeholder="Informe o tamanho da área"
                       />
                     </div>
                     <div className="col-md-12 col-sm-6 col-12">
-                      <label for="nameColheita">Época da colheita</label>
+                      <label htmlFor=" epoca_da_colheita">
+                        Época da colheita
+                      </label>
                       <Field
+                        value={values.epoca_da_colheita}
+                        onChange={handleChange}
                         type="text"
-                        name="nameColheita"
-                        id="nameColheita"
+                        name="epoca_da_colheita"
+                        id="epoca_da_colheita"
                         placeholder="Informe a época da colheita"
                       />
                     </div>
@@ -62,12 +98,24 @@ export default function CultureForm() {
                     <div className="row">
                       <div className="col-md-12 col-sm-6 col-12">
                         <label>Tratos culturais</label>
-                        <Field name="textarea" rows="5" component="textarea" />
+                        <Field
+                          value={values.tratos_culturais}
+                          onChange={handleChange}
+                          name="tratos_culturais"
+                          rows="5"
+                          component="textarea"
+                        />
                       </div>
                       <div className="col-md-12 col-sm-6 col-12">
                         <label>Manejo</label>
 
-                        <Field name="textarea1" component="textarea" rows="5" />
+                        <Field
+                          value={values.manejo}
+                          onChange={handleChange}
+                          name="manejo"
+                          component="textarea"
+                          rows="5"
+                        />
                       </div>
                     </div>
                   </div>
@@ -83,7 +131,6 @@ export default function CultureForm() {
                     </button>
                     <button
                       type="reset"
-                      value="Reset"
                       style={{ float: "right", marginLeft: 11 }}
                     >
                       Cancelar
