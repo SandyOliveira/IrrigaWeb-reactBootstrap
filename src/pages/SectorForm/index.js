@@ -32,7 +32,6 @@ export default function SectorForm() {
     async function loadCulturas() {
       const response = await api.get("api/v1/culturas/");
 
-      console.log(response.data.results);
       setCultures(response.data.results);
     }
     loadCulturas();
@@ -51,7 +50,6 @@ export default function SectorForm() {
   }
   function onSubmit({ name, textarea, selectCultura, selectSensor }) {
     dispatch(sectorsInRequest(name, textarea, selectCultura, selectSensor));
-    console.log("SUBMIT", name, textarea, selectCultura, selectSensor);
   }
 
   return (
